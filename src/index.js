@@ -8,6 +8,8 @@ function format(log){
   log.forEach(item => {
     str += `r:${item.river}-e:${item.event}/`
   })
+  console.log("has formattet to this")
+  console.log(str.slice(0, -1))
   return str.slice(0, -1)
 };
 
