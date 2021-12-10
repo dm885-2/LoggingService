@@ -16,7 +16,7 @@ env:
   GKE_ZONE: europe-north1
   NAMESPACE: rabbits                                       # Maybe change this, probably not though.
   DEPLOYMENT_NAME: LoggingService                       # Change this to match the name in the deployment.yaml
-  IMAGE: ${{secrets.DOCKERHUB_USERNAME}}/LoggingServiceImage      # Change this to match the image name in deployment.yaml
+  IMAGE: ${{secrets.DOCKERHUB_USERNAME}}/loggingserviceimage      # Change this to match the image name in deployment.yaml
 
 jobs:
   build:
