@@ -10,8 +10,8 @@ export const host = "amqp://" + rabbitUser + ":" + rabbitPass + "@" + (process.e
 
 /**
  * Automatically adds logging, request and sessionIDs to rabbit responses.
- * @param stromg host 
- * @param [] subscribers 
+ * @param stromg host
+ * @param [] subscribers
  */
 export function subscriber(host, subscribers)
 {
@@ -19,32 +19,28 @@ export function subscriber(host, subscribers)
         river: subscriber.river,
         event: subscriber.event,
         work: (msg, publish) => {
-            const wrapResponse = (func) => {
-                let logPath = msg.logPath ?? [];
-                logPath.push({
-                    river: subscriber.river, 
-                    event: subscriber.event
-                });
+            const wrappedPublish = (event, data) => {
+               let logPath = msg.logPath ?? [];
+               logPath.push({
+                   river: subscriber.river, 
+                   event: subscriber.event
+               });
 
-                return data => func({
-                    ...data,
-                    sessionId: msg.sessionId,
-                    requestId: msg.requestId,
-                    logPath
-                });
+               publish(event, {
+                   ...data,
+                   sessionId: msg.sessionId,
+                   requestId: msg.requestId,
+                   logPath
+               });
             };
-
-            subscriber(msg, wrapResponse(publish), (host, event, data) => {
-                const fixData = wrapResponse(d => d);
-                rapid.publish(host, event, fixData(data));
-            });
+            subscriber.work(msg, wrappedPublish);
         },
     })));
 }
 
 /**
  * Returns the token payload if its valid, otherwise it returns false.
- * @param String token 
+ * @param String token
  * @returns Promise<false|TokenData>
  */
 export function getTokenData(token)
@@ -67,9 +63,9 @@ if(process.env.mysqlDb)
 }
 
 /**
- * Runs a SQL query on the DB. 
- * @param string stmt 
- * @param ?string[] WHERE 
+ * Runs a SQL query on the DB.
+ * @param string stmt
+ * @param ?string[] WHERE
  * @returns results[]|false
  */
 export function query(stmt, WHERE = [])
