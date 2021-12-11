@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: loggingservice                # CHANGE THIS TO YOUR SERVICE NAME
+  name: logging                # CHANGE THIS TO YOUR SERVICE NAME
   labels:
-    app: loggingservice             # CHANGE THIS TO YOUR SERVICE NAME
+    app: logging             # CHANGE THIS TO YOUR SERVICE NAME
 spec:
   selector:
     matchLabels:
-      app: loggingservice         # CHANGE THIS TO YOUR SERVICE NAME
+      app: logging         # CHANGE THIS TO YOUR SERVICE NAME
   replicas: 1
   template:
     metadata:
       labels:
-        app: loggingservice           # CHANGE THIS TO YOUR SERVICE NAME
+        app: logging           # CHANGE THIS TO YOUR SERVICE NAME
     spec:
       containers:
-      - name: loggingservice          # CHANGE THIS TO YOUR SERVICE NAME
-        image: dm885/loggingserviceimage      # CHANGE THIS TO YOUR DOCKER IMAGE
+      - name: logging          # CHANGE THIS TO YOUR SERVICE NAME
+        image: dm885/logging      # CHANGE THIS TO YOUR DOCKER IMAGE
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
@@ -50,13 +50,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: loggingservice              # CHANGE THIS TO YOUR SERVICE NAME
+  name: logging              # CHANGE THIS TO YOUR SERVICE NAME
   labels:
-    app: loggingservice             # CHANGE THIS TO YOUR SERVICE NAME
+    app: logging             # CHANGE THIS TO YOUR SERVICE NAME
 spec:
   type: ClusterIP
   selector:
-    app: loggingservice             # CHANGE THIS TO YOUR SERVICE NAME
+    app: logging             # CHANGE THIS TO YOUR SERVICE NAME
   ports:
     - protocol: TCP
       name: http

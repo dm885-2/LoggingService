@@ -1,5 +1,5 @@
 {
-  "name": "microservice-template",
+  "name": "logging-services",
   "version": "0.0.1",
   "description": "A template for a generic microservice",
   "main": "./src/index.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DM885/Microservice-template.git"
+    "url": "git+https://github.com/DM885/LoggingService.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DM885/Microservice-template/issues"
+    "url": "https://github.com/DM885/LoggingService/issues"
   },
-  "homepage": "https://github.com/DM885/Microservice-template#readme",
+  "homepage": "https://github.com/DM885/LoggingService#readme",
   "dependencies": {
     "@ovcina/rapidriver": "^2.0.7",
     "jsonwebtoken": "^8.5.1",

@@ -1,8 +1,8 @@
 # ------- UN-COMMENT THE SERVICES YOU WANT TO TEST WITH THIS SERVICE ------- #
 
                   #   DONT UNCOMMENT YOUR OWN SERVICE HERE    #
-# -------------------------------------------------------------------------- #          
-          
+# -------------------------------------------------------------------------- #
+
 # GATEWAY
 kubectl -n rabbits apply -f https://raw.githubusercontent.com/DM885/GatewayService/main/deployment.yaml
 
