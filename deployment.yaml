@@ -3,11 +3,11 @@ kind: Deployment
 metadata:
   name: loggingservice                # CHANGE THIS TO YOUR SERVICE NAME
   labels:
-    app: loggingservice               # CHANGE THIS TO YOUR SERVICE NAME
+    app: loggingservice             # CHANGE THIS TO YOUR SERVICE NAME
 spec:
   selector:
     matchLabels:
-      app: loggingservice             # CHANGE THIS TO YOUR SERVICE NAME
+      app: loggingservice         # CHANGE THIS TO YOUR SERVICE NAME
   replicas: 1
   template:
     metadata:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: loggingservice          # CHANGE THIS TO YOUR SERVICE NAME
-        image: dm885/loggingserviceimage          # CHANGE THIS TO YOUR DOCKER IMAGE
+        image: dm885/loggingserviceimage      # CHANGE THIS TO YOUR DOCKER IMAGE
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
