@@ -58,7 +58,7 @@ if(process.env.mysqlDb)
         database : process.env.mysqlDb ?? 'db',
     });
     connection.connect();
-    query("CREATE TABLE IF NOT EXISTS `logs` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`userId` int(11) NOT NULL, `sessionId` varchar(255) NOT NULL,`requestId` varchar(255) NOT NULL,`logPath` TEXT NOT NULL, KEY `Index 1` (`userId`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+    query("CREATE TABLE IF NOT EXISTS `logs` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`userId` int(11) NOT NULL, `sessionId` varchar(255) NOT NULL,`requestId` varchar(255) NOT NULL,`logPath` TEXT NOT NULL, KEY `Index 1` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
 
 }
 

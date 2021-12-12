@@ -24,7 +24,7 @@ export function format(log){
 export async function savelog(msg){
   
     const newUserStmt = await query("INSERT INTO logs (`userId`,`sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [
-      msg.uid,
+      msg.userId,
       msg.sessionId,
       msg.requestId,
       format(msg.logPath)
