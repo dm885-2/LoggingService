@@ -24,19 +24,22 @@ export function format(log){
 export async function savelog(msg){
   
   const log = await query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
+
   
+  rapid.publish(host, "getLogs", {});
 }
  
    
 export async function getLogs(msg, publish){
-  console.log("getLogs");
+
   const data = await query("SELECT * FROM `logs`");
-  console.log(data);
   
   publish("getLogs-response", {
     data: data || [],
 });
-console.log(data);
+
+  console.log("data in the database")
+  console.log(data)
 }
 
 if(process.env.RAPID)
