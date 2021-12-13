@@ -1,5 +1,7 @@
 import {format} from "./index.js";
 
+
+
 test('format of [{"river":"auth","event":"signUp"}] to "r:auth-e:signUp', () => {
     expect(format([{"river":"auth","event":"signUp"}])).toBe("r:auth-e:signUp");
   });
@@ -29,4 +31,9 @@ test('format should thow an error if one of the objects is missing a river', () 
 test('format should thow an error if one of the objects is missing a river', () => {
     expect(() => format([{"river":"auth","event":"signUp"},{"river":"auth"}])).toThrow();
 });
-  
+
+
+
+
+
+

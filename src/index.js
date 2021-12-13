@@ -25,8 +25,7 @@ export async function savelog(msg){
   
   const log = await query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
 
-  
-  rapid.publish(host, "getLogs", {});
+  return log;
 }
  
    
@@ -37,9 +36,8 @@ export async function getLogs(msg, publish){
   publish("getLogs-response", {
     data: data || [],
 });
-
-  console.log("data in the database")
-  console.log(data)
+  return data
+  
 }
 
 if(process.env.RAPID)
