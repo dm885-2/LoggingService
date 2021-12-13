@@ -10,12 +10,12 @@ on:
     branches: [ main ]
 
 env:
-  CICD_TOGGLE: false                              # Change this to true when you are ready to use the pipeline
+  CICD_TOGGLE: true                              # Change this to true when you are ready to use the pipeline
   PROJECT_ID: ${{secrets.GKE_PROJECT}}
   GKE_CLUSTER: buildcluster
   GKE_ZONE: europe-north1
   NAMESPACE: rabbits                                              # Maybe change this, probably not though.
-  DEPLOYMENT_NAME: crud                                           # Change this to match the name in the deployment.yaml
+  DEPLOYMENT_NAME: logging                                           # Change this to match the name in the deployment.yaml
 
 jobs:
   build:
@@ -64,7 +64,7 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-    
+
   testing:
     runs-on: ubuntu-latest
     steps:
@@ -96,7 +96,7 @@ jobs:
       timeout-minutes: 4
       run: |
         ./.github/k3s-wait.sh
-        kubectl get pods 
+        kubectl get pods
         kubectl -n ${{ env.NAMESPACE }} get pods
         kubectl -n ${{ env.NAMESPACE }} get svc
     - name: Port Forward
@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build,testing]
     steps:
-    - uses: actions/checkout@v2  
+    - uses: actions/checkout@v2
     # Push image
     # This is the a separate action that sets up buildx runner
     - name: Set up Docker Buildx
@@ -154,18 +154,18 @@ jobs:
       with:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
         project_id: ${{ secrets.GKE_PROJECT }}
-        
+
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
-    
+
     - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
-        
+
      # Deploy the Docker image to the GKE BUILD cluster
     - name: Deploy to GKE Cluster
       run: kubectl -n ${{ env.NAMESPACE }} apply -f ./deployment.yaml && kubectl -n ${{ env.NAMESPACE }} rollout restart deployment/${{ env.DEPLOYMENT_NAME }}
