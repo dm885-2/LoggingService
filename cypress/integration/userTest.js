@@ -46,7 +46,7 @@ describe('USER Test', () => {
             headers: {
                 "Authorization": `Bearer ${accessToken}`
           }}).then(res => {
-            expect(res).to.have.property("status", 403);
+            expect(res).to.have.property("status", 401);
 
             return;
         });
