@@ -1,5 +1,5 @@
 import rapid from "@ovcina/rapidriver";
-import {host, query, subscriber} from "./helpers.js";
+import helpers from './helpers.js';
 
 export function format(log){
   let str = "";
@@ -17,24 +17,31 @@ export function format(log){
     
     str += `r:${item.river}-e:${item.event}/`
   })
-
   return str.slice(0, -1);
 };
 
 export async function savelog(msg){
   
-  const log = await query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
+ 
+  
+  const log = await helpers.query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
 
-  return log;
+  if (log == false){
+    throw 500;
+  }
 }
  
    
 export async function getLogs(msg, publish){
-  console.log("Requesting logs");
 
-  const data = await query("SELECT * FROM `logs`");
+  const data = await helpers.query("SELECT * FROM `logs`");
 
-  console.log("Found the logs, sending them return")
+  if (data == false){
+    throw 500;
+  }
+  if(!msg.sessionId || !msg.requestId){
+    throw 500;
+  }
   
   publish("getLogs-response", {
     data: data || [],
@@ -47,7 +54,7 @@ export async function getLogs(msg, publish){
 
 if(process.env.RAPID)
 {
-    rapid.subscribe(host, [{
+    rapid.subscribe(helpers.host, [{
         river: "logging", event: "logIt", work: res => {
           console.log(`Received: ${JSON.stringify(res)}`);
           const msg = res;
@@ -56,7 +63,7 @@ if(process.env.RAPID)
       }]);
 
      // Create a rapidriver instance that listen for logRequests and return all logs
-     subscriber(host, [{river: "logging", event: "getLogs", work: getLogs}]);
+     helpers.subscriber(helpers.host, [{river: "logging", event: "getLogs", work: getLogs}]);
 
       
 }

@@ -5,20 +5,17 @@ import mysql from "mysql";
 const SECRET = process.env.SECRET ?? `3(?<,t2mZxj$5JT47naQFTXwqNWP#W>'*Kr!X!(_M3N.u8v}%N/JYGHC.Zwq.!v-`;  // JWT secret
 const rabbitUser = process.env.rabbitUser ?? "guest";
 const rabbitPass = process.env.rabbitPass ?? "guest";
-export const host = "amqp://" + rabbitUser + ":" + rabbitPass + "@" + (process.env.rabbitHost ?? `localhost`);  // RabbitMQ url
+const host = 'amqp://' + rabbitUser + ':' + rabbitPass + '@' + (process.env.rabbitHost ?? `localhost`);  // RabbitMQ url
 
 
-export function publishAndWait(event, responseEvent, sessionID, data, userID)
-{
-    return new Promise(r => RapidManager.publishAndSubscribe(event, responseEvent, sessionID, data, r, userID));
-}
+
 
 /**
  * Automatically adds logging, request and sessionIDs to rabbit responses.
  * @param stromg host 
  * @param [] subscribers 
  */
- export function subscriber(host, subscribers)
+function subscriber(host, subscribers)
  {
      rapid.subscribe(host, subscribers.map(subscriber => ({
          river: subscriber.river,
@@ -48,7 +45,7 @@ export function publishAndWait(event, responseEvent, sessionID, data, userID)
  * @param String token 
  * @returns Promise<false|TokenData>
  */
-export function getTokenData(token)
+function getTokenData(token)
 {
     return new Promise(resolve => jwt.verify(token, SECRET, (err, data) => resolve(err ? false : data)));
 }
@@ -81,7 +78,14 @@ if(process.env.mysqlDb)
  * @param ?string[] WHERE 
  * @returns results[]|false
  */
-export function query(stmt, WHERE = [])
+function query(stmt, WHERE = [])
 {
     return new Promise(r => connection.query(stmt, WHERE, (err, results) => r(err ? false : results)));
+}
+
+export default {
+    host,
+    query,
+    getTokenData,
+    subscriber
 }
