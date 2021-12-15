@@ -30,13 +30,18 @@ export async function savelog(msg){
  
    
 export async function getLogs(msg, publish){
+  console.log("Requesting logs");
 
   const data = await query("SELECT * FROM `logs`");
+
+  console.log("Found the logs, sending them return")
   
   publish("getLogs-response", {
     data: data || [],
+    sessionId: msg.sessionId,
+    requestId: msg.requestId
 });
-  return data
+  
   
 }
 
