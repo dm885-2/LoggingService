@@ -3,7 +3,7 @@
 // It should be rejectede as the user does not have the right to access the log - 403.
 
 
-efore(()=> {
+before(()=> {
     const uname = "u"+Date.now();
     const pass = "p"+Date.now();
     cy.register(uname, pass, 0);
