@@ -9,7 +9,7 @@ describe('ADMIN Test', () => {
         cy.login(uname, pass);
         cy.getAT();
        
-    })
+    });
 
     it("Admin will get logs", () => {
         
@@ -25,8 +25,5 @@ describe('ADMIN Test', () => {
 
             return;
         });
-    })
-
-
-    
+    });
 });
