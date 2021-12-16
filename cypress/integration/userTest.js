@@ -13,7 +13,6 @@ describe('USER Test', () => {
     })
 
     it("User will not logs", () => {
-        
         cy.request({
             method: "get",
              url: "/logs",
@@ -28,6 +27,6 @@ describe('USER Test', () => {
         });
     })
 
-
+    
     
 });

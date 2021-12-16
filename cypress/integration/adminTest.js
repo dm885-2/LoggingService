@@ -5,7 +5,7 @@ describe('ADMIN Test', () => {
     before(()=> {
         const uname = "u"+Date.now();
         const pass = "p"+Date.now();
-        cy.registerAdmin(uname, pass);
+        cy.register(uname, pass, 1);
         cy.login(uname, pass);
         cy.getAT();
     });
@@ -20,7 +20,6 @@ describe('ADMIN Test', () => {
             }
         }).then(res => {
             expect(res).to.have.property("status", 200);
-
             return;
         });
     });
