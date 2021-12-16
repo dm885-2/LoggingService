@@ -79,24 +79,3 @@ Cypress.Commands.add('login', (userName, password) => {
       .should('eq', 200);
   })
 
-Cypress.Commands.add("addFile", (name) => {
-    const token = Cypress.env('rtoken');
-        cy.request({
-          method: "POST",
-          url: "/files",
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + Cypress.env("token")
-          },
-          body: {
-              filename: name,
-              filetype: "mzn",
-              data : "file content"
-          }
-      }).as('addFileResponse')
-      .then((response) => {
-        return response;
-      })
-      .its('status')
-      .should('eq', 200);
-})

@@ -2,10 +2,6 @@
 // and will check if the log is accessible.
 // It should be rejectede as the user does not have the right to access the log - 403.
 
-
-
-
-
 describe('USER Test', () => {
 
     before(()=> {
@@ -14,7 +10,6 @@ describe('USER Test', () => {
         cy.register(uname, pass, 0);
         cy.login(uname, pass);
         cy.getAT();
-        
     })
    
 
