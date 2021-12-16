@@ -8,13 +8,11 @@ describe('ADMIN Test', () => {
         cy.registerAdmin(uname, pass);
         cy.login(uname, pass);
         cy.getAT();
-       
     });
 
     it("Admin will get logs", () => {
-        
         cy.request({
-            method: "get",
+            method: "GET",
              url: "/logs",
              headers: {
                 "Content-Type": "application/json",

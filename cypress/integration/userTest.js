@@ -11,7 +11,6 @@ describe('USER Test', () => {
         cy.login(uname, pass);
         cy.getAT();
     })
-   
 
     it("User will not logs", () => {
         
@@ -25,7 +24,6 @@ describe('USER Test', () => {
             }
         }).then(res => {
             expect(res).to.have.property("status", 403);
-
             return;
         });
     })

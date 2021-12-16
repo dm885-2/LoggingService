@@ -67,6 +67,8 @@ Cypress.Commands.add('login', (userName, password) => {
     cy.request({
         method:'POST', 
         url:'/auth/login',
+        retryOnStatusCodeFailure: true,
+        retryOnNetworkFailure: true,
         body: {
           username: userName,
           password: password
@@ -86,6 +88,8 @@ Cypress.Commands.add('login', (userName, password) => {
     cy.request({
         method:'POST', 
         url:'/auth/accessToken',
+        retryOnStatusCodeFailure: true,
+        retryOnNetworkFailure: true,
         body: {
           refreshToken : token
         }
