@@ -26,8 +26,6 @@ Cypress.Commands.add('register', (userName, password, rank) => {
     cy.request({
         method:'POST', 
         url:'/auth/register',
-        retryOnStatusCodeFailure: true,
-        retryOnNetworkFailure: true,
         body: {
             "username": userName,
             "password": password,
@@ -47,8 +45,6 @@ Cypress.Commands.add('login', (userName, password) => {
     cy.request({
         method:'POST', 
         url:'/auth/login',
-        retryOnStatusCodeFailure: true,
-        retryOnNetworkFailure: true,
         body: {
           username: userName,
           password: password
@@ -68,13 +64,11 @@ Cypress.Commands.add('login', (userName, password) => {
     cy.request({
         method:'POST', 
         url:'/auth/accessToken',
-        retryOnStatusCodeFailure: true,
-        retryOnNetworkFailure: true,
         body: {
           refreshToken : token
         }
       })
-      .as('loginResponse')
+      .as('atResponse')
       .then((response) => {
         Cypress.env('token', response.body.accessToken);
         return response;

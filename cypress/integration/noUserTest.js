@@ -1,6 +1,4 @@
 
-const time = Date.now();
-
 // This test will just try to acces the API without any user
 // and will check if the API returns a 401 error
 
