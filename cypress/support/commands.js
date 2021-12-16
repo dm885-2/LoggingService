@@ -22,7 +22,7 @@
 //
 //
 // -- This will overwrite an existing command --
-Cypress.Commands.add('register', (userName, password, rank) => {
+Cypress.Commands.add('register', (userName, password) => {
     cy.request({
         method:'POST', 
         url:'/auth/register',
@@ -31,8 +31,7 @@ Cypress.Commands.add('register', (userName, password, rank) => {
         body: {
             "username": userName,
             "password": password,
-            "passwordRepeat": password,
-            "rank": rank
+            "passwordRepeat": password
         }
         })
         .as('registerResponse')
@@ -41,6 +40,27 @@ Cypress.Commands.add('register', (userName, password, rank) => {
         })
         .its('status')
         .should('eq', 200);
+})
+
+Cypress.Commands.add('registerAdmin', (userName, password) => {
+  cy.request({
+      method:'POST', 
+      url:'/auth/register',
+      retryOnStatusCodeFailure: true,
+      retryOnNetworkFailure: true,
+      body: {
+          "username": userName,
+          "password": password,
+          "passwordRepeat": password,
+          "rank": 1
+      }
+      })
+      .as('registerResponse')
+      .then((response) => {
+          return response;
+      })
+      .its('status')
+      .should('eq', 200);
 })
 
 Cypress.Commands.add('login', (userName, password) => {
