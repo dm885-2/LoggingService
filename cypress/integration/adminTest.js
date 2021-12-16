@@ -1,17 +1,4 @@
 
-const time = Date.now();
-const admin = {
-    username: `u${time}`,
-    password: `p${time}`,
-};
-
-
-let refreshToken;
-let accessToken;
-
-
-
-
 describe('ADMIN Test', () => {
     //Same test as in Authentication Services, as we just need to create a user and loging
 
