@@ -77,24 +77,23 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16.x
+        cache: 'npm'
     - name: Run Setup-Script
       run: |
         chmod +x .github/k3s-setup.sh
         chmod +x .github/k3s-wait.sh
         chmod +x ./test_services.sh
         ./.github/k3s-setup.sh
-        ./test_services.sh
       shell: bash
     - name: Wait for rollout
-      timeout-minutes: 4
       run: |
         ./.github/k3s-wait.sh
     - name: Deploy Service
       run: |
         cat ./deployment.yaml | sed "s/${{secrets.DOCKERHUB_USERNAME}}\/${{env.DEPLOYMENT_NAME}}/${{secrets.DOCKERHUB_USERNAME}}\/${{env.DEPLOYMENT_NAME}}-testing/g" | kubectl -n ${{ env.NAMESPACE }} apply -f -
     - name: Wait for service rollout
-      timeout-minutes: 4
       run: |
+        ./test_services.sh
         ./.github/k3s-wait.sh
         kubectl get pods
         kubectl -n ${{ env.NAMESPACE }} get pods
