@@ -2,7 +2,7 @@
 describe('ADMIN Test', () => {
 
 
-    before(()=> {
+    beforeEach(()=> {
        cy.loginAsAdmin();
         cy.getAT();
     });

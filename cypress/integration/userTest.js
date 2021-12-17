@@ -4,7 +4,7 @@
 
 describe('USER Test', () => {
 
-    before(()=> {
+    beforeEach(()=> {
         cy.loginAsUser();
         cy.getAT();
     })
