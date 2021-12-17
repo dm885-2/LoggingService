@@ -22,64 +22,41 @@
 //
 //
 // -- This will overwrite an existing command --
-Cypress.Commands.add('register', (userName, password) => {
-    cy.request({
-        method:'POST', 
-        url:'/auth/register',
-        retryOnStatusCodeFailure: true,
-        retryOnNetworkFailure: true,
-        body: {
-            "username": userName,
-            "password": password,
-            "passwordRepeat": password
-        }
-        })
-        .as('registerResponse')
-        .then((response) => {
-            return response;
-        })
-        .its('status')
-        .should('eq', 200);
-})
-
-Cypress.Commands.add('registerAdmin', (userName, password) => {
+Cypress.Commands.add('loginAsUser', () => {
   cy.request({
       method:'POST', 
-      url:'/auth/register',
-      retryOnStatusCodeFailure: true,
-      retryOnNetworkFailure: true,
+      url:'/auth/login',
       body: {
-          "username": userName,
-          "password": password,
-          "passwordRepeat": password,
-          "rank": 1
+        username: "user",
+        password: "user_supersecure"
       }
-      })
-      .as('registerResponse')
-      .then((response) => {
-          return response;
-      })
-      .its('status')
-      .should('eq', 200);
+    })
+    .as('loginResponse')
+    .then((response) => {
+      Cypress.env('rtoken', response.body.refreshToken); 
+      return response;
+    })
+    .its('status')
+    .should('eq', 200);
 })
 
-Cypress.Commands.add('login', (userName, password) => {
-    cy.request({
-        method:'POST', 
-        url:'/auth/login',
-        body: {
-          username: userName,
-          password: password
-        }
-      })
-      .as('loginResponse')
-      .then((response) => {
-        Cypress.env('rtoken', response.body.refreshToken); 
-        return response;
-      })
-      .its('status')
-      .should('eq', 200);
+Cypress.Commands.add('loginAsAdmin', () => {
+cy.request({
+    method:'POST', 
+    url:'/auth/login',
+    body: {
+      username: "admin",
+      password: "admin_supersecure"
+    }
   })
+  .as('loginResponse')
+  .then((response) => {
+    Cypress.env('rtoken', response.body.refreshToken); 
+    return response;
+  })
+  .its('status')
+  .should('eq', 200);
+})
 
   Cypress.Commands.add('getAT', () => {
     const token = Cypress.env('rtoken');

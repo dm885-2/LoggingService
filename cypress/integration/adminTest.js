@@ -1,12 +1,9 @@
 
 describe('ADMIN Test', () => {
-    //Same test as in Authentication Services, as we just need to create a user and loging
+
 
     before(()=> {
-        const uname = "u"+Date.now();
-        const pass = "p"+Date.now();
-        cy.registerAdmin(uname, pass);
-        cy.login(uname, pass);
+       cy.loginAsAdmin();
         cy.getAT();
        
     });

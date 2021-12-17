@@ -5,10 +5,7 @@
 describe('USER Test', () => {
 
     before(()=> {
-        const uname = "u"+Date.now();
-        const pass = "p"+Date.now();
-        cy.register(uname, pass);
-        cy.login(uname, pass);
+        cy.loginAsUser();
         cy.getAT();
     })
    
