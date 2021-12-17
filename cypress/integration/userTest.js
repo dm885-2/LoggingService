@@ -8,10 +8,8 @@ describe('USER Test', () => {
         cy.loginAsUser();
         cy.getAT();
     })
-   
 
     it("User will not logs", () => {
-        
         cy.request({
             method: "get",
              url: "/logs",
@@ -22,11 +20,10 @@ describe('USER Test', () => {
             }
         }).then(res => {
             expect(res).to.have.property("status", 403);
-
             return;
         });
     })
 
-
+    
     
 });
