@@ -35,7 +35,7 @@ export async function savelog(msg){
    
 export async function getLogs(msg, publish){
 
-  const data = await helpers.query("SELECT * FROM `logs` ORDER BY id DESC LIMIT 500");
+  const data = await helpers.query("SELECT * FROM ( SELECT * FROM `logs` ORDER BY id DESC LIMIT 500) sub ORDER BY id DESC");
 
 
   if (data == false){
