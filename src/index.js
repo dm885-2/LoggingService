@@ -27,6 +27,7 @@ export async function savelog(msg){
   const log = await helpers.query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
 
   if (log == false){
+    
     throw 500;
   }
 }
@@ -34,7 +35,8 @@ export async function savelog(msg){
    
 export async function getLogs(msg, publish){
 
-  const data = await helpers.query("SELECT * FROM `logs`");
+  const data = await helpers.query("SELECT * FROM `logs` ORDER BY id DESC LIMIT 500");
+
 
   if (data == false){
     throw 500;
