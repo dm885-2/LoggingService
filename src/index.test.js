@@ -53,7 +53,7 @@ describe('Testing savelog', () => {
   });
 
   test('It should query the database when adding a log', async () => {
-    const msg = {sessionId: sessionId, requestId: requestId, logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userid: 1};
+    const msg = {sessionId: sessionId, requestId: requestId, logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userId: 1};
     await savelog(msg);
 
     // Check that it queried the database.
@@ -61,7 +61,7 @@ describe('Testing savelog', () => {
   });
 
   test('It should query the database twices adding 2 logs', async () => {
-    const msg = {sessionId: sessionId, requestId: requestId, logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userid: 1};
+    const msg = {sessionId: sessionId, requestId: requestId, logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userId: 1};
     await savelog(msg);
     await savelog(msg);
 
@@ -74,15 +74,15 @@ describe('Testing savelog', () => {
   });
 
   test('msq needs to have a sessionId', async () => {
-    expect(() =>  savelog({ requestId: requestId, logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userid: 1}).toThrow());
+    expect(() =>  savelog({ requestId: requestId, logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userId: 1}).toThrow());
   });
 
   test('msq needs to have a requestId', async () => {
-    expect(() =>  savelog({sessionId: sessionId,  logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userid: 1}).toThrow());
+    expect(() =>  savelog({sessionId: sessionId,  logPath: [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}], userId: 1}).toThrow());
   });
 
   test('msq needs to have LogPath', async () => {
-    expect(() =>  savelog({sessionId: sessionId, requestId: requestId, userid: 1}).toThrow());
+    expect(() =>  savelog({sessionId: sessionId, requestId: requestId, userId: 1}).toThrow());
   });
 
   test('msq needs to have userid', async () => {
