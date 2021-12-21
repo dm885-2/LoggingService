@@ -21,18 +21,14 @@ export function format(log){
 };
 
 export async function savelog(msg){
-
-
   
- if( msg.userId >= 0){
-  
-    const log = await helpers.query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
+  const log = await helpers.query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
 
-    if (log == false){
+  if (log == false){
       
-      throw 500;
-    }
+    throw 500;
   }
+  
 }
  
    
