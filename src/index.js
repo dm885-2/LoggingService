@@ -22,7 +22,7 @@ export function format(log){
 
 export async function savelog(msg){
   
-  const log = await helpers.query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`) VALUES (?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath)]);
+  const log = await helpers.query("INSERT INTO `logs` (`userId`, `sessionId`, `requestId`, `logPath`, `timestamp`) VALUES (?, ?, ?, ?, ?)", [msg.userId, msg.sessionId, msg.requestId, format(msg.logPath), Date.now()]);
 
   if (log == false){
       

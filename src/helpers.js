@@ -67,7 +67,8 @@ if(process.env.mysqlDb)
     "`userId` int(11) NOT NULL," +
     "`sessionId` varchar(255) NOT NULL," +
     "`requestId` varchar(255) NOT NULL, " + 
-    "`logPath` varchar(255) NOT NULL, " +
+    "`timestamp` text," +
+    "`logPath` text, " +
     "KEY `Index 1` (`id`)" +
     ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");    
 }
