@@ -13,11 +13,11 @@ const publishFn = jest.fn();
 
 describe('Test of format', () => {
   test('format of [{"river":"auth","event":"signUp"}] to "r:auth-e:signUp', () => {
-    expect(format([{ "river": "auth", "event": "signUp" }])).toBe("r:auth-e:signUp");
+    expect(format([{ "river": "auth", "event": "signUp" }])).toBe("r:auth-e:signUp ");
   });
 
   test('format of [{"river":"auth","event":"signUp"},{"river":"auth","event":"signUp"}] to "r:auth-e:signUp', () => {
-    expect(format([{ "river": "auth", "event": "signUp" }, { "river": "auth", "event": "signUp" }])).toBe("r:auth-e:signUp/r:auth-e:signUp");
+    expect(format([{ "river": "auth", "event": "signUp" }, { "river": "auth", "event": "signUp" }])).toBe("r:auth-e:signUp -> r:auth-e:signUp ");
   });
 
   test('format should expect two arguments', () => {

@@ -15,9 +15,9 @@ export function format(log){
       throw 500;
     }
     
-    str += `r:${item.river}-e:${item.event}/`
+    str += `r:${item.river}-e:${item.event} -> `
   })
-  return str.slice(0, -1);
+  return str.slice(0, -3);
 };
 
 export async function savelog(msg){
